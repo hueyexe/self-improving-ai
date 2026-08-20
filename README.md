@@ -45,7 +45,8 @@ Append this entry to the existing `plugin` array in
 ]
 ```
 
-Fully quit and restart OpenCode. OpenCode installs the npm package at startup
+Fully quit and restart OpenCode. OpenCode installs the package from the npm
+registry at startup
 and runs one completion review after a session reaches 8 messages.
 
 ### Claude Code
