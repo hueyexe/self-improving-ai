@@ -40,12 +40,12 @@ Append this entry to the existing `plugin` array in
 
 ```json
 [
-  "github:hueyexe/self-improving-ai",
+  "self-improving-opencode@latest",
   { "minMessages": 8, "gbrain": false }
 ]
 ```
 
-Fully quit and restart OpenCode. OpenCode installs the GitHub package at startup
+Fully quit and restart OpenCode. OpenCode installs the npm package at startup
 and runs one completion review after a session reaches 8 messages.
 
 ### Claude Code
