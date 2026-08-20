@@ -1,0 +1,16 @@
+{
+  "description": "Run one self-improvement review after a substantial Claude Code session.",
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ${CLAUDE_PLUGIN_ROOT}/adapters/shared/stop_hook.py",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

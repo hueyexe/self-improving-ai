@@ -15,9 +15,10 @@ The loop has two durable outputs:
 - Memory stores facts, decisions, preferences, corrections, and ongoing context.
 - Skills store reusable procedures, decision rules, tool usage, and verification.
 
-It pairs naturally with GBrain: GBrain provides the memory layer, while this
-starting skill grows and refines the procedural skill layer. GBrain is optional;
-agents without it can use their existing memory mechanism.
+It pairs naturally with [GBrain](https://github.com/garrytan/gbrain): GBrain
+provides the memory layer, while this starting skill grows and refines the
+procedural skill layer. GBrain is optional; agents without it can use their
+existing memory mechanism.
 
 ## Install
 
@@ -62,6 +63,90 @@ The all-agents install currently reports failures for Eve and PromptScript
 because those clients do not support global skill installation. This does not
 affect installation for the other supported agents. An `overwrites` line is
 also expected when updating an existing installation.
+
+## Completion adapters
+
+The skill defines what to learn, but a lifecycle adapter makes the completion
+check deterministic. Install the skill first, then enable the adapter for your
+client. Each adapter triggers at most once per session and skips short sessions.
+
+Defaults:
+
+- Claude Code and Codex require a transcript of at least 12,000 bytes.
+- OpenCode requires at least 8 messages.
+- GBrain wording is disabled.
+
+### OpenCode
+
+Clone this repository, then add the local module to the `plugin` array in
+`~/.config/opencode/opencode.json`:
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": [
+    [
+      "file:///absolute/path/to/self-improving-ai/adapters/opencode/index.js",
+      { "minMessages": 8, "gbrain": false }
+    ]
+  ]
+}
+```
+
+OpenCode loads configuration once. Restart it after changing the file. The
+adapter listens for `session.idle`, checks the session message count, and uses
+`session.promptAsync` to run one final review without blocking the event loop.
+
+### Claude Code
+
+Add this repository as a plugin marketplace and install the plugin:
+
+```text
+/plugin marketplace add hueyexe/self-improving-ai
+/plugin install self-improving@self-improving-ai
+```
+
+The plugin uses a `Stop` hook. On the first stop after a substantial session it
+blocks once and supplies the completion prompt; Claude Code's
+`stop_hook_active` input and the plugin's session marker prevent recursion.
+
+### Codex
+
+Codex plugin hooks require a current Codex release with plugins and hooks
+enabled. Add the GitHub marketplace and install the plugin:
+
+```bash
+codex plugin marketplace add hueyexe/self-improving-ai
+codex plugin add self-improving@self-improving-ai
+```
+
+Open `/hooks` once after installation and trust the plugin's hook definition.
+Codex intentionally does not trust newly installed plugin hooks automatically.
+Open a new thread after installation so the plugin and skill are loaded.
+
+### Optional [GBrain](https://github.com/garrytan/gbrain) context
+
+GBrain is off by default. Set this environment variable before launching the
+agent to include the optional memory guidance in the completion prompt:
+
+```bash
+export SELF_IMPROVING_GBRAIN=1
+```
+
+This does not install or configure GBrain. Follow the
+[GBrain repository](https://github.com/garrytan/gbrain) for setup. The flag only
+tells the review to use GBrain, when available, for durable non-procedural
+memory while keeping procedures in Agent Skills.
+
+Threshold overrides:
+
+```bash
+export SELF_IMPROVING_MIN_TRANSCRIPT_BYTES=12000 # Claude Code and Codex
+export SELF_IMPROVING_MIN_MESSAGES=8             # OpenCode env fallback
+```
+
+Set a threshold to `0` to review every session. Lower thresholds increase cost
+and make low-value skill churn more likely.
 
 ## Skill conventions
 

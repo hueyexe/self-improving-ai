@@ -1,0 +1,17 @@
+{
+  "description": "Run one self-improvement review after a substantial Codex session.",
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ${PLUGIN_ROOT}/adapters/shared/stop_hook.py",
+            "timeout": 10,
+            "statusMessage": "Checking for durable improvements"
+          }
+        ]
+      }
+    ]
+  }
+}

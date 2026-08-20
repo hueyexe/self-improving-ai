@@ -1,0 +1,20 @@
+{
+  "name": "self-improving-ai",
+  "interface": {
+    "displayName": "Self-Improving AI"
+  },
+  "plugins": [
+    {
+      "name": "self-improving",
+      "source": {
+        "source": "local",
+        "path": "./plugins/self-improving"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

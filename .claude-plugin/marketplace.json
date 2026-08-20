@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "self-improving-ai",
+  "version": "1.0.0",
+  "description": "Self-improving AI completion hooks and skills.",
+  "owner": {
+    "name": "Chris Clapham"
+  },
+  "plugins": [
+    {
+      "name": "self-improving",
+      "description": "Run a guarded self-improvement review at the end of substantial Claude Code sessions.",
+      "version": "0.1.0",
+      "source": "./plugins/claude-code",
+      "category": "productivity"
+    }
+  ]
+}
