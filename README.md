@@ -21,18 +21,47 @@ agents without it can use their existing memory mechanism.
 
 ## Install
 
-Install all skills globally:
+Install the skill globally for every agent supported by the Skills CLI:
 
 ```bash
-npx skills add hueyexe/self-improving-ai --all --global
+npx skills add https://github.com/hueyexe/self-improving-ai --all --global
 ```
 
-Install only the self-improvement skill:
+The command installs `self-improving` at `~/.agents/skills/self-improving`
+and links it into each supported agent's skill directory. Running it again is
+safe and updates the existing installation.
+
+To target specific agents instead of every supported agent:
 
 ```bash
-npx skills add hueyexe/self-improving-ai \
-  --skill self-improving --agent '*' --global --yes
+npx skills add https://github.com/hueyexe/self-improving-ai \
+  --skill self-improving \
+  --agent claude-code codex kiro-cli opencode \
+  --global --yes
 ```
+
+List the installed skill and its source:
+
+```bash
+npx skills list --global
+```
+
+Update it later from GitHub:
+
+```bash
+npx skills update self-improving --global --yes
+```
+
+Remove it:
+
+```bash
+npx skills remove self-improving --global --yes
+```
+
+The all-agents install currently reports failures for Eve and PromptScript
+because those clients do not support global skill installation. This does not
+affect installation for the other supported agents. An `overwrites` line is
+also expected when updating an existing installation.
 
 ## Skill conventions
 
