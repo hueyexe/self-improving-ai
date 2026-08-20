@@ -24,9 +24,7 @@ jobs:
 
       - run: bun test
       - name: Publish package
-        run: bun publish --access public
-        env:
-          NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: bun publish --access public --tolerate-republish
 
       - name: Create GitHub release
         env:
