@@ -13,7 +13,7 @@ import unittest
 SCRIPT = Path(__file__).with_name("stop_hook.py")
 ROOT = Path(__file__).parents[2]
 CLAUDE_SCRIPT = ROOT / "plugins/claude-code/adapters/shared/stop_hook.py"
-CODEX_SCRIPT = ROOT / ".agents/plugins/plugins/self-improving/adapters/shared/stop_hook.py"
+CODEX_SCRIPT = ROOT / "plugins/self-improving/adapters/shared/stop_hook.py"
 
 
 class StopHookTest(unittest.TestCase):
