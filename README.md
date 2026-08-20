@@ -151,6 +151,20 @@ Remove it:
 npx skills remove self-improving --global --yes
 ```
 
+## Release the OpenCode package
+
+Maintainers publish releases explicitly. Update `version` in `package.json`,
+then run:
+
+```bash
+bun test
+bun publish --access public
+git tag -a "v$(bun -p 'require("./package.json").version')" -m "Release"
+git push origin main --follow-tags
+gh release create "v$(bun -p 'require("./package.json").version')" \
+  --generate-notes --verify-tag
+```
+
 ## Skill conventions
 
 - `skills/self-improving` is the only starting skill.
