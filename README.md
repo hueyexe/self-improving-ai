@@ -78,7 +78,7 @@ Defaults:
 
 ### OpenCode
 
-Clone this repository, then add the local module to the `plugin` array in
+Add the GitHub package to the `plugin` array in
 `~/.config/opencode/opencode.json`:
 
 ```json
@@ -86,7 +86,7 @@ Clone this repository, then add the local module to the `plugin` array in
   "$schema": "https://opencode.ai/config.json",
   "plugin": [
     [
-      "file:///absolute/path/to/self-improving-ai/adapters/opencode/index.js",
+      "github:hueyexe/self-improving-ai",
       { "minMessages": 8, "gbrain": false }
     ]
   ]
