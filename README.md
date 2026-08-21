@@ -35,13 +35,22 @@ npx skills add https://github.com/hueyexe/self-improving-ai \
   --skill self-improving --agent opencode --global --yes
 ```
 
-Append this entry to the existing `plugin` array in
+For OpenCode v2, append this entry to the existing `plugins` array in
 `~/.config/opencode/opencode.json`. Keep your other plugin entries:
+
+```json
+{
+  "package": "self-improving-opencode@latest",
+  "options": { "minMessages": 8, "gbrain": false, "debug": false }
+}
+```
+
+For OpenCode v1, append this entry to the existing `plugin` array instead:
 
 ```json
 [
   "self-improving-opencode@latest",
-  { "minMessages": 8, "gbrain": false }
+  { "minMessages": 8, "gbrain": false, "debug": false }
 ]
 ```
 
@@ -130,6 +139,10 @@ export SELF_IMPROVING_MIN_MESSAGES=8             # OpenCode env fallback
 
 Set a threshold to `0` to review every session. Lower thresholds increase cost
 and make low-value skill churn more likely.
+
+Set OpenCode's `debug` option to `true`, or set `SELF_IMPROVING_DEBUG=1`, to
+record threshold decisions and completion-review outcomes in the OpenCode log.
+Debug logging does not add messages to the session.
 
 ## Manage the skill
 
