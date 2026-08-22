@@ -1,9 +1,12 @@
 {
   "name": "self-improving-opencode",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Run the self-improving completion check after substantial OpenCode sessions.",
   "type": "module",
-  "exports": "./adapters/opencode/v2.js",
+  "exports": {
+    ".": "./adapters/opencode/v2.js",
+    "./server": "./adapters/opencode/index.js"
+  },
   "files": [
     "adapters/opencode/index.js",
     "adapters/opencode/v2.js",

@@ -1,4 +1,4 @@
-import { completionPrompt, debugEnabled, minimumMessages } from "./index.js"
+import { SelfImprovingPlugin, completionPrompt, debugEnabled, minimumMessages } from "./index.js"
 export { SelfImprovingPlugin } from "./index.js"
 
 const storageKey = (sessionID) => `sessions/${sessionID}/message-count`
@@ -47,6 +47,7 @@ async function reviewSession(ctx, state, sessionID) {
 
 export const SelfImprovingPluginV2 = {
   id: "self-improving",
+  server: SelfImprovingPlugin,
   setup: (ctx) => {
     const controller = new AbortController()
     const state = { reviewed: new Set(), reviewing: new Set(), messageCounts: new Map() }
